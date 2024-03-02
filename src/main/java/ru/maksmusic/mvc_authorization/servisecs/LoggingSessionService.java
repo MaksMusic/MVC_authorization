@@ -11,7 +11,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoggingSessionServices {
+public class LoggingSessionService {
 
     private String login;
 

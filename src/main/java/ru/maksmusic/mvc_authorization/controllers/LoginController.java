@@ -1,8 +1,10 @@
 package ru.maksmusic.mvc_authorization.controllers;
 
 
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,8 @@ public class LoginController {
     }
 
     @GetMapping("/")
-    public String loginGet(){
+    public String loginGet(Model model){
+        model.addAttribute("count",loginProcessor.getLoginCountService().getCount());
         return "login.html";
     }
 
@@ -36,6 +39,7 @@ public class LoginController {
         }
 
         model.addAttribute("message","логин или пароль не действителен");
+        model.addAttribute("count",loginProcessor.getLoginCountService().getCount());
         return "login.html";
 
     }

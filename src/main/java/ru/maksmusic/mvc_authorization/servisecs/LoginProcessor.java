@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class LoginProcessor {
-    private LoggingSessionServices loggingSessionServices;
+    private LoggingSessionService loggingSessionService;
+    private LoginCountService loginCountService;
 
-    public LoginProcessor(LoggingSessionServices loggingSessionServices) {
-        this.loggingSessionServices = loggingSessionServices;
+    public LoginProcessor(LoggingSessionService loggingSessionService, LoginCountService loginCountService) {
+        this.loggingSessionService = loggingSessionService;
+        this.loginCountService = loginCountService;
     }
 
     private String login;
@@ -18,12 +20,13 @@ public class LoginProcessor {
 
 
     public boolean isConnect(){
+        loginCountService.increment();
         String login =  getLogin();
         String password =  getPassword();
 
         boolean b =  login.equals("Admin") && password.equals("12345");
         if (b){
-            loggingSessionServices.setLogin(login);
+            loggingSessionService.setLogin(login);
         }
         return b;
     }
